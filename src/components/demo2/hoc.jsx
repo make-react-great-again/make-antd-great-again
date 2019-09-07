@@ -1,27 +1,25 @@
 import React, { Component } from 'react';
+import { Form } from 'antd';
 
-export function hoc(params) {
+export function hoc(params = {}) {
+  const { form, preload, connect } = params;
   return (WrappedComponent) => {
+    if (form) {
+      WrappedComponent = Form.create({ name: 'wrapped_form_component' })(WrappedComponent);
+    }
     return class Enhanced extends React.Component {
       constructor(props) {
         super(props);
-        this.state = {
-          value: '',
-        };
-        this.handleChange = this.handleChange.bind(this);
+        this.state = {};
       }
-      handleChange(e) {
-        console.log(e.currentTarget.value);
-        this.setState({
-          value: e.currentTarget.value,
-        });
-      }
+
       render() {
+        const data = preload(this.props);
         let newProps = {
-          value: this.state.value,
-          onChange: this.handleChange,
+          ...this.props,
+          ...data,
         };
-        return <WrappedComponent {...newProps} {...params}/>;
+        return <WrappedComponent {...newProps} />;
       }
     };
   };

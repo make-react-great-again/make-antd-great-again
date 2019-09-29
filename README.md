@@ -3,9 +3,9 @@
 ## 本项目试图对 react 和 antd 进行再封装，期望能达到以下目标
 
 1. 使用 `HOC` 对 `react` 的 `class组件`进行装饰
-2. 装饰器分为两个：`page` & `component`, page 装饰器可以设置页面`title`,其他功能如下
+2. 装饰器分为两个：`page` & `component`, `page` 装饰器可以设置页面`title`,其他功能如下
 3. 引入`style`样式
-4. 设置`form: true`后，自动将组件用 `antd from` 包裹,可在 `props` 中拿到 `form` 的方法, 也可以在 HOC 中封装更多方法
+4. 设置`form: true`后，自动将组件用 `antd from` 包裹,可在 `props` 中拿到 `form` 的方法, 也可以在 `HOC` 中封装更多方法
 
    ```jsx
    Form.create({ name: 'wrapped_form_component' })(WrappedComponent);
@@ -43,3 +43,8 @@ class Demo extends Component {
   }
 }
 ```
+
+## v_0.1
+
+1. 重写`webpack`配置，丰富功能。
+2. `css`的`HotModuleReplacement`未生效，原因不明😳

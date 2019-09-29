@@ -1,6 +1,7 @@
 import { hoc } from './hoc.jsx';
 import React, { Component } from 'react';
 import { types } from '../../redux/index.js';
+import { Input } from 'antd';
 
 const getNumber = (props) => {
   const { normalProps } = props;
@@ -8,7 +9,7 @@ const getNumber = (props) => {
 };
 
 @hoc({
-  title: '1',
+  title: 'test title',
   form: true,
   style: require('./style.scss'),
   preload: (props) => ({
@@ -36,8 +37,8 @@ class Demo extends Component {
     const { resultData, counter, increment } = this.props;
     return (
       <div>
-        <input type="text" className="text" />
-        <div>{resultData}</div>
+        <Input type="text" className="text" />
+        <div className="abc">{resultData}</div>
         <div>{counter}</div>
         <button onClick={increment}>+</button>
       </div>

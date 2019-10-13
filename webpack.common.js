@@ -1,7 +1,16 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-
+const MiniCssLoader = {
+  loader: MiniCssExtractPlugin.loader,
+  options: {
+    // only enable hot in development
+    hmr: process.env.NODE_ENV === 'development',
+    // if hmr does not work, this is a forceful method.
+    // reloadAll: true,
+  },
+}
+console.log(MiniCssLoader)
 module.exports = {
   entry: {
     main: './src/index.js',
@@ -45,8 +54,7 @@ module.exports = {
          * style-loader会根据css-loader分析生成的文件，挂在到html的style标签中
          */
         use: [
-          // 'style-loader',
-          MiniCssExtractPlugin.loader,
+          MiniCssLoader,
           {
             loader: 'css-loader',
             options: {
@@ -62,7 +70,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
+        use: [
+          MiniCssLoader,
+          'css-loader',
+          'postcss-loader'
+        ],
       },
       // 配置babel
       {
@@ -82,7 +94,7 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
-      chunkFilename: '[name].chunk.css',
+      chunkFilename: '[id].css',
     }),
   ],
   // 配置code-spliting
